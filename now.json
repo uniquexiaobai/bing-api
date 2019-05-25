@@ -1,0 +1,7 @@
+{
+    "version": 2,
+    "name": "bing-api",
+    "builds": [
+        { "src": "**/*.js", "use": "@now/node" }
+    ]
+}
