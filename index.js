@@ -1,8 +1,6 @@
 const express = require('express');
 const axios = require('axios');
 const cors = require('cors');
-const qiniu = require('qiniu');
-const config = require('./qiniu');
 
 const fetchUrl = 'https://www.bing.com/HPImageArchive.aspx?format=js&n=1&mkt=zh-CN&idx=0';
 const baseUrl = 'https://cn.bing.com';
@@ -19,30 +17,6 @@ const fetch = async () => {
     }
     return {};
 };
-
-const upload = async () => {
-    const {key, url} = await fetch();
-
-    if (!key || !url) return;
-
-    const conf = new qiniu.conf.Config();
-    conf.zone = qiniu.zone.Zone_z0;
-    const mac = new qiniu.auth.digest.Mac(config.ACCESS_KEY, config.SECRET_KEY);
-    const manager = new qiniu.rs.BucketManager(mac, conf);
-
-    manager.fetch(url, config.bucket, key, (err) => {
-        if (err) {
-            console.error(err);
-        }
-    });
-};
-
-/*
-upload();
-setInterval(() => {
-    upload();
-}, 21600000); // 6h
-*/
 
 const app = express();
 
