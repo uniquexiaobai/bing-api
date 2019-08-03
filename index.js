@@ -37,10 +37,12 @@ const upload = async () => {
     });
 };
 
+/*
 upload();
 setInterval(() => {
     upload();
 }, 21600000); // 6h
+*/
 
 const app = express();
 
